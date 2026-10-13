@@ -1,6 +1,10 @@
 import { ArrowRight, Phone, MapPin, ShieldCheck, Clock, Wrench } from 'lucide-react'
-import { HexNut } from './HexNut'
-import { company, images } from '../data/content'
+import { HexNut } from '../ui/HexNut.tsx'
+
+const tagline = 'Renta de Maquinaria Pesada y de Construcción'
+const phone = '+52 81 1234 5678'
+const phoneLink = 'tel:+528112345678'
+const heroImage = 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1800&q=80'
 
 const highlights = [
   { icon: ShieldCheck, text: 'Flotilla certificada' },
@@ -13,7 +17,7 @@ export function Hero() {
     <section id="inicio" className="relative isolate overflow-hidden bg-brand-blue-dark">
       <div
         className="pointer-events-none absolute inset-0 -z-10 animate-ken-burns bg-cover bg-center opacity-30"
-        style={{ backgroundImage: `url('${images.hero}')` }}
+        style={{ backgroundImage: `url('${heroImage}')` }}
         aria-hidden="true"
       />
       <div
@@ -61,7 +65,7 @@ export function Hero() {
           </h1>
 
           <p className="animate-fade-up mb-8 max-w-2xl text-base leading-relaxed text-blue-100/85 sm:text-xl" style={{ animationDelay: '200ms' }}>
-            {company.tagline}. Rentamos equipos pesados listos para trabajar,
+            {tagline}. Rentamos equipos pesados listos para trabajar,
             con mantenimiento certificado y soporte 24/7 en el noreste de México.
           </p>
 
@@ -74,11 +78,11 @@ export function Hero() {
               <ArrowRight className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </a>
             <a
-              href={company.phoneLink}
+              href={phoneLink}
               className="group btn-shine inline-flex items-center justify-center gap-2 rounded-md border border-white/25 bg-white/5 px-7 py-4 text-base font-semibold text-white backdrop-blur transition-colors hover:border-white/50 hover:bg-white/10 sm:px-8"
             >
               <Phone className="h-5 w-5 shrink-0 text-brand-orange-light" aria-hidden="true" />
-              {company.phone}
+              {phone}
             </a>
           </div>
         </div>

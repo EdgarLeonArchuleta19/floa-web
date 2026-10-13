@@ -1,7 +1,17 @@
-import { Reveal } from './Reveal'
-import { TiltCard } from './TiltCard'
-import { fleet } from '../data/content'
-import { Icon } from './Icon'
+import { Reveal } from '../ui/Reveal.tsx'
+import { TiltCard } from '../ui/TiltCard.tsx'
+import { Icon } from '../ui/Icon.tsx'
+
+const fleet = [
+  { icon: 'excavator', name: 'Excavadoras', units: '18', detail: '20 a 49 ton' },
+  { icon: 'backhoe', name: 'Retroexcavadoras', units: '25', detail: '410 C / BHL65' },
+  { icon: 'loader', name: 'Cargadores Frontales', units: '20', detail: '928 GZ a 980M' },
+  { icon: 'bulldozer', name: 'Dozers', units: '12', detail: 'D6 – D11' },
+  { icon: 'forklift', name: 'Montacargas', units: '35', detail: '3 a 16 ton' },
+  { icon: 'compactor', name: 'Compactadores', units: '15', detail: 'CS78B / CP54' },
+  { icon: 'crane', name: 'Grúas', units: '8', detail: '25 a 250 ton' },
+  { icon: 'roller', name: 'Rodillos', units: '10', detail: 'CS533E / CB24' },
+]
 
 export function Fleet() {
   return (

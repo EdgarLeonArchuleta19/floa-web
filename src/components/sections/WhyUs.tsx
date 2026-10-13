@@ -1,7 +1,35 @@
-import { Reveal } from './Reveal'
-import { TiltCard } from './TiltCard'
-import { features, images } from '../data/content'
-import { Icon } from './Icon'
+import { Reveal } from '../ui/Reveal.tsx'
+import { TiltCard } from '../ui/TiltCard.tsx'
+import { Icon } from '../ui/Icon.tsx'
+
+const ctaImage = 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1800&q=80'
+
+const features = [
+  {
+    icon: 'shield',
+    title: 'Seguridad ante todo',
+    description:
+      'Protocolos de seguridad, equipamiento de protección y capacitación continua bajo estándares OSHA.',
+  },
+  {
+    icon: 'clock',
+    title: 'Entrega puntual',
+    description:
+      'Coordinación logística para que tu equipo llegue a obra en el momento comprometido, en todo momento.',
+  },
+  {
+    icon: 'wrench',
+    title: 'Mantenimiento certificado',
+    description:
+      'Cada máquina pasa por inspecciones técnicas periódicas antes de salir a tu proyecto.',
+  },
+  {
+    icon: 'handshake',
+    title: 'Acompañamiento total',
+    description:
+      'Asesoría técnica y soporte en sitio durante toda la duración del contrato.',
+  },
+]
 
 export function WhyUs() {
   return (
@@ -28,7 +56,7 @@ export function WhyUs() {
               </p>
             </Reveal>
 
-            <div className="grid gap-4 sm:grid-cols-2">
+            <ul className="grid gap-4 sm:grid-cols-2">
               {features.map((feature, index) => (
                 <Reveal
                   key={feature.title}
@@ -48,14 +76,14 @@ export function WhyUs() {
                   </div>
                 </Reveal>
               ))}
-            </div>
+            </ul>
           </div>
 
           <Reveal direction="right" delay={120} className="relative">
             <div className="absolute -inset-6 -z-10 rounded-3xl bg-gradient-to-br from-brand-blue/5 via-transparent to-brand-orange/10 blur-2xl" aria-hidden="true" />
             <TiltCard maxTilt={5} glowColor="rgba(244, 118, 13, 0.10)" className="group overflow-hidden rounded-2xl shadow-xl shadow-slate-900/10">
               <img
-                src={images.cta}
+                src={ctaImage}
                 alt="Obra de construcción con maquinaria pesada"
                 className="h-[320px] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 sm:h-[500px]"
                 loading="lazy"

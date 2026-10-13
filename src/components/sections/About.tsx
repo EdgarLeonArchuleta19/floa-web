@@ -1,13 +1,19 @@
-import { Reveal } from './Reveal'
-import { TiltCard } from './TiltCard'
-import { CountUp } from './CountUp'
-import { company, stats } from '../data/content'
+import { Reveal } from '../ui/Reveal.tsx'
+import { TiltCard } from '../ui/TiltCard.tsx'
+import { CountUp } from '../ui/CountUp.tsx'
+
+const legalName = 'FLOA Maquinaria y Construcción S.A. de C.V.'
+const imageMain = 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80'
+const imageOverlay = 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=800&q=80'
+
+const stats = [
+  { value: '15+', label: 'Años de experiencia' },
+  { value: '120+', label: 'Equipos en flotilla' },
+  { value: '300+', label: 'Proyectos completados' },
+  { value: '98%', label: 'Disponibilidad de equipo' },
+]
 
 export function About() {
-  const image = 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80'
-  const image2 =
-    'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=800&q=80'
-
   return (
     <section id="nosotros" className="relative isolate overflow-hidden bg-white py-16 sm:py-28">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-grid-dark" aria-hidden="true" />
@@ -17,7 +23,7 @@ export function About() {
           <Reveal direction="left" className="relative order-2 lg:order-1">
             <TiltCard maxTilt={4} glowColor="rgba(1, 52, 87, 0.08)" className="group overflow-hidden rounded-2xl shadow-xl shadow-slate-900/10">
               <img
-                src={image}
+                src={imageMain}
                 alt="Equipo de construcción pesada trabajando en obra"
                 className="h-[340px] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 sm:h-[420px]"
                 loading="lazy"
@@ -25,7 +31,7 @@ export function About() {
             </TiltCard>
             <div className="absolute -bottom-8 -right-4 hidden h-40 w-40 overflow-hidden rounded-2xl border-4 border-white shadow-lg transition-transform duration-500 ease-out hover:scale-105 sm:block lg:h-52 lg:w-52">
               <img
-                src={image2}
+                src={imageOverlay}
                 alt="Retroexcavadora en operación"
                 className="h-full w-full object-cover"
                 loading="lazy"
@@ -54,7 +60,7 @@ export function About() {
             </Reveal>
             <Reveal direction="right" delay={160}>
               <p className="mb-4 text-lg leading-relaxed text-slate-600">
-                {company.legalName} nace en Monterrey con una misión clara:
+                {legalName} nace en Monterrey con una misión clara:
                 entregar maquinaria pesada en las mejores condiciones y en el
                 tiempo exacto que tu obra lo necesita.
               </p>
@@ -68,7 +74,7 @@ export function About() {
               </p>
             </Reveal>
 
-<Reveal direction="right" delay={320} className="grid grid-cols-2 gap-4 border-t border-slate-200 pt-6 sm:grid-cols-4 sm:gap-6 sm:pt-8">
+            <Reveal direction="right" delay={320} className="grid grid-cols-2 gap-4 border-t border-slate-200 pt-6 sm:grid-cols-4 sm:gap-6 sm:pt-8">
               {stats.map((stat) => (
                 <div
                   key={stat.label}

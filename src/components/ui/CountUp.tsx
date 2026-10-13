@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useInView } from '../hooks/useInView'
+import { useInView } from '../../hooks/useInView.ts'
 
 function parseValue(value) {
   const match = value.match(/^([0-9.]+)(.*)$/)

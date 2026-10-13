@@ -1,4 +1,4 @@
-import { useInView } from '../hooks/useInView'
+import { useInView } from '../../hooks/useInView.ts'
 
 const directionClasses = {
   up: 'reveal',
@@ -18,14 +18,12 @@ export function Reveal({
   const { ref, isVisible } = useInView()
   const style = delay ? { transitionDelay: `${delay}ms` } : undefined
   const base = directionClasses[direction] ?? directionClasses.up
+  const classes = [base, isVisible && 'is-visible', className]
+    .filter(Boolean)
+    .join(' ')
 
   return (
-    <Tag
-      ref={ref}
-      className={`${base} ${isVisible ? 'is-visible' : ''} ${className}`}
-      style={style}
-      {...props}
-    >
+    <Tag ref={ref} className={classes} style={style} {...props}>
       {children}
     </Tag>
   )

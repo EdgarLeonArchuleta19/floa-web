@@ -1,8 +1,52 @@
-import { Reveal } from './Reveal'
-import { TiltCard } from './TiltCard'
-import { services } from '../data/content'
-import { Icon } from './Icon'
+import { Reveal } from '../ui/Reveal.tsx'
+import { TiltCard } from '../ui/TiltCard.tsx'
+import { Icon } from '../ui/Icon.tsx'
 import { ArrowRight } from 'lucide-react'
+
+const services = [
+  {
+    id: 'renta',
+    icon: 'hard-hat',
+    title: 'Renta de Maquinaria',
+    description:
+      'Flotilla de excavadoras, retroexcavadoras, montacargas y compactadores listos para tu obra, con contratos flexibles por día, semana o mes.',
+  },
+  {
+    id: 'movimiento',
+    icon: 'truck',
+    title: 'Movimiento de Tierras',
+    description:
+      'Nivelaciones, excavaciones y despalmes ejecutados con precisión y maquinaria de última generación para avanzar tu proyecto sin contratiempos.',
+  },
+  {
+    id: 'transporte',
+    icon: 'trailer',
+    title: 'Transporte de Equipo',
+    description:
+      'Traslado seguro de maquinaria pesada con plataformas y operadores certificados, en cualquier punto del noreste del país.',
+  },
+  {
+    id: 'mantenimiento',
+    icon: 'wrench',
+    title: 'Mantenimiento Preventivo',
+    description:
+      'Programas de mantenimiento preventivo y correctivo que garantizan la máxima disponibilidad y vida útil de tus equipos.',
+  },
+  {
+    id: 'operadores',
+    icon: 'user-check',
+    title: 'Operadores Certificados',
+    description:
+      'Personal altamente capacitado y certificado en seguridad, que opera cada máquina con responsabilidad y eficiencia.',
+  },
+  {
+    id: 'proyectos',
+    icon: 'building',
+    title: 'Proyectos Llave en Mano',
+    description:
+      'Soluciones integrales que incluyen diseño, suelo, maquinaria y ejecución para proyectos de construcción industrial y urbana.',
+  },
+]
 
 export function Services() {
   return (

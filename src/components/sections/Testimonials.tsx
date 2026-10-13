@@ -1,7 +1,27 @@
 import { useState } from 'react'
 import { Quote, ChevronLeft, ChevronRight } from 'lucide-react'
-import { testimonials } from '../data/content'
-import { Reveal } from './Reveal'
+import { Reveal } from '../ui/Reveal.tsx'
+
+const testimonials = [
+  {
+    name: 'Ing. Roberto Cantú',
+    role: 'Director de Obra · Constructora RCM',
+    quote:
+      'FLOA ha sido un socio confiable en tres proyectos consecutivos. La disponibilidad de su flotilla y su soporte en terreno nos permitieron entregar cada obra a tiempo.',
+  },
+  {
+    name: 'Arq. Laura Garza',
+    role: 'Gte. de Proyectos · Grupo Acosta',
+    quote:
+      'Las máquinas siempre llegan en excelente estado y su equipo de operadores es de primer nivel. Se siente el compromiso por hacer bien el trabajo.',
+  },
+  {
+    name: 'Ing. José Treviño',
+    role: 'Superintendente · Inmobiliaria Trev',
+    quote:
+      'La renta de equipos con FLOA nos ahorró tiempo y dolores de cabeza. La cotización, logística y facturación fueron rápidas y transparentes.',
+  },
+]
 
 export function Testimonials() {
   const [active, setActive] = useState(0)

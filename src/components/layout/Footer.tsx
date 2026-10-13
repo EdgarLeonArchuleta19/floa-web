@@ -1,5 +1,28 @@
 import { Phone, Mail, MapPin, Clock } from 'lucide-react'
-import { company, navLinks } from '../data/content'
+import logoFloaBlack from '../../assets/logo-floa-black.png'
+
+const companyName = 'FLOA'
+const legalName = 'FLOA Maquinaria y Construcción S.A. de C.V.'
+const phone = '+52 81 1234 5678'
+const phoneLink = 'tel:+528112345678'
+const email = 'contacto@floa.mx'
+const emailLink = 'mailto:contacto@floa.mx'
+const street = 'Av. Pablo Livas 4200, Col. Fomerrey 9'
+const city = 'Monterrey, N.L., México'
+const schedule = 'Lunes a Sábado · 8:00 a.m. – 6:00 p.m.'
+const social = {
+  facebook: 'https://facebook.com/floamaquinaria',
+  instagram: 'https://instagram.com/floamaquinaria',
+  linkedin: 'https://linkedin.com/company/floamaquinaria',
+}
+
+const navLinks = [
+  { label: 'Inicio', href: '#inicio' },
+  { label: 'Nosotros', href: '#nosotros' },
+  { label: 'Servicios', href: '#servicios' },
+  { label: 'Flotilla', href: '#flotilla' },
+  { label: 'Contacto', href: '#contacto' },
+]
 
 function FacebookIcon({ className }) {
   return (
@@ -26,9 +49,9 @@ function LinkedinIcon({ className }) {
 }
 
 const socialLinks = [
-  { Icon: FacebookIcon, href: company.social.facebook, label: 'Facebook de FLOA' },
-  { Icon: InstagramIcon, href: company.social.instagram, label: 'Instagram de FLOA' },
-  { Icon: LinkedinIcon, href: company.social.linkedin, label: 'LinkedIn de FLOA' },
+  { Icon: FacebookIcon, href: social.facebook, label: 'Facebook de FLOA' },
+  { Icon: InstagramIcon, href: social.instagram, label: 'Instagram de FLOA' },
+  { Icon: LinkedinIcon, href: social.linkedin, label: 'LinkedIn de FLOA' },
 ]
 
 export function Footer() {
@@ -41,8 +64,8 @@ export function Footer() {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <img
-              src={`${import.meta.env.BASE_URL}logo-floa-black.png`}
-              alt={`Logo de ${company.name}`}
+              src={logoFloaBlack}
+              alt={`Logo de ${companyName}`}
               className="mb-4 h-10 w-auto object-contain"
             />
             <p className="mb-4 text-sm leading-relaxed">
@@ -90,33 +113,33 @@ export function Footer() {
             <ul className="space-y-3 text-sm">
               <li>
                 <a
-                  href={company.phoneLink}
+                  href={phoneLink}
                   className="flex items-start gap-2.5 transition-colors hover:text-brand-orange-light"
                 >
                   <Phone className="mt-0.5 h-4 w-4 shrink-0 text-blue-300/80" aria-hidden="true" />
-                  {company.phone}
+                  {phone}
                 </a>
               </li>
               <li>
                 <a
-                  href={company.emailLink}
+                  href={emailLink}
                   className="flex items-start gap-2.5 transition-colors hover:text-brand-orange-light"
                 >
                   <Mail className="mt-0.5 h-4 w-4 shrink-0 text-blue-300/80" aria-hidden="true" />
-                  {company.email}
+                  {email}
                 </a>
               </li>
               <li className="flex items-start gap-2.5">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-blue-300/80" aria-hidden="true" />
                 <span>
-                  {company.address.street}
+                  {street}
                   <br />
-                  {company.address.city}
+                  {city}
                 </span>
               </li>
               <li className="flex items-start gap-2.5">
                 <Clock className="mt-0.5 h-4 w-4 shrink-0 text-blue-300/80" aria-hidden="true" />
-                <span>{company.schedule}</span>
+                <span>{schedule}</span>
               </li>
             </ul>
           </div>
@@ -139,7 +162,7 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 text-xs text-blue-100/60 sm:flex-row sm:px-6 lg:px-8">
           <p>
-            © {new Date().getFullYear()} {company.legalName}. Todos los derechos
+            © {new Date().getFullYear()} {legalName}. Todos los derechos
             reservados.
           </p>
           <p className="flex items-center gap-1.5">

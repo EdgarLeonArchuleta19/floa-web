@@ -6,36 +6,48 @@ import {
   MessageCircle,
   ArrowRight,
 } from 'lucide-react'
-import { HexNut } from './HexNut'
-import { company } from '../data/content'
-import { Reveal } from './Reveal'
+import { HexNut } from '../ui/HexNut.tsx'
+import { Reveal } from '../ui/Reveal.tsx'
+
+const phone = '+52 81 1234 5678'
+const phoneLink = 'tel:+528112345678'
+const whatsapp = 'https://wa.me/528112345678'
+const email = 'contacto@floa.mx'
+const emailLink = 'mailto:contacto@floa.mx'
+const street = 'Av. Pablo Livas 4200, Col. Fomerrey 9'
+const city = 'Monterrey, N.L., México'
+const schedule = 'Lunes a Sábado · 8:00 a.m. – 6:00 p.m.'
+const hours = 'Soporte 24/7 para proyectos activos'
+const mapsEmbed =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3595.8937354674186!2d-100.28778152462538!3d25.671373377406982!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8662bfc2d8f1c3bb%3A0x1b3b0f4e5a2c1d2b!2sAv.%20Pablo%20Livas%204200%2C%20Monterrey%2C%20N.L.!5e0!3m2!1ses!2smx!4v1710000000000!5m2!1ses!2smx'
+const mapsLink = 'https://maps.google.com/?q=Av.+Pablo+Livas+4200,+Monterrey,+N.L.'
 
 const contactCards = [
   {
     icon: Phone,
     title: 'Teléfono',
-    lines: [company.phone],
-    href: company.phoneLink,
+    lines: [phone],
+    href: phoneLink,
     hint: 'Llamar ahora',
   },
   {
     icon: Mail,
     title: 'Correo',
-    lines: [company.email],
-    href: company.emailLink,
+    lines: [email],
+    href: emailLink,
     hint: 'Escribir correo',
   },
   {
     icon: MapPin,
     title: 'Ubicación',
-    lines: [company.address.street, company.address.city],
-    href: 'https://maps.google.com/?q=Av.+Pablo+Livas+4200,+Monterrey,+N.L.',
+    lines: [street, city],
+    href: mapsLink,
     hint: 'Abrir en Google Maps',
   },
   {
     icon: Clock,
     title: 'Horario',
-    lines: [company.schedule, company.hours],
+    lines: [schedule, hours],
   },
 ]
 
@@ -141,14 +153,14 @@ export function Contact() {
 
                 <div className="grid gap-3 sm:grid-cols-2">
                   <a
-                    href={company.phoneLink}
+                    href={phoneLink}
                     className="group btn-shine inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-brand-orange to-brand-orange-light px-5 py-4 text-base font-semibold text-white shadow-lg shadow-brand-orange/30 transition-all hover:-translate-y-0.5 hover:shadow-brand-orange/40"
                   >
                     <Phone className="h-5 w-5" aria-hidden="true" />
                     Llamar ahora
                   </a>
                   <a
-                    href={company.whatsapp}
+                    href={whatsapp}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group btn-shine inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-5 py-4 text-base font-semibold text-white shadow-lg shadow-emerald-600/25 transition-all hover:-translate-y-0.5 hover:bg-emerald-500"
@@ -157,18 +169,18 @@ export function Contact() {
                     WhatsApp
                   </a>
                   <a
-                    href={company.emailLink}
+                    href={emailLink}
                     className="group btn-shine inline-flex items-center justify-center gap-2 rounded-lg border border-white/25 bg-white/5 px-5 py-4 text-base font-semibold text-white backdrop-blur transition-colors hover:border-white/50 hover:bg-white/10 sm:col-span-2"
                   >
                     <Mail className="h-5 w-5 text-brand-orange-light" aria-hidden="true" />
-                    {company.email}
+                    {email}
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                   </a>
                 </div>
 
                 <p className="mt-6 flex items-center gap-2 text-sm text-blue-100/60">
                   <Clock className="h-4 w-4 shrink-0 text-brand-orange-light" aria-hidden="true" />
-                  {company.schedule} · {company.hours} · Soporte 24/7 para obras activas
+                  {schedule} · {hours}
                 </p>
               </div>
             </div>
@@ -182,12 +194,12 @@ export function Contact() {
               Visítanos
             </p>
             <p className="text-sm text-slate-600">
-              {company.address.street}, {company.address.city}
+              {street}, {city}
             </p>
           </div>
           <iframe
-            title={`Mapa de la ubicación de ${company.name}`}
-            src={company.mapsEmbed}
+            title="Mapa de la ubicación de FLOA"
+            src={mapsEmbed}
             className="h-[300px] w-full border-0 sm:h-[380px]"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
