@@ -5,6 +5,7 @@ const directionClasses = {
   left: 'reveal reveal-left',
   right: 'reveal reveal-right',
   zoom: 'reveal reveal-zoom',
+  wipe: 'reveal-wipe',
 }
 
 export function Reveal({

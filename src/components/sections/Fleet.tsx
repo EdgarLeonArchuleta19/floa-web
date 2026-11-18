@@ -1,93 +1,98 @@
+import { ArrowRight } from 'lucide-react'
 import { Reveal } from '../ui/Reveal.tsx'
-import { TiltCard } from '../ui/TiltCard.tsx'
-import { Icon } from '../ui/Icon.tsx'
+import { Eyebrow } from '../ui/Eyebrow.tsx'
+import { CountUp } from '../ui/CountUp.tsx'
 
 const fleet = [
-  { icon: 'excavator', name: 'Excavadoras', units: '18', detail: '20 a 49 ton' },
-  { icon: 'backhoe', name: 'Retroexcavadoras', units: '25', detail: '410 C / BHL65' },
-  { icon: 'loader', name: 'Cargadores Frontales', units: '20', detail: '928 GZ a 980M' },
-  { icon: 'bulldozer', name: 'Dozers', units: '12', detail: 'D6 – D11' },
-  { icon: 'forklift', name: 'Montacargas', units: '35', detail: '3 a 16 ton' },
-  { icon: 'compactor', name: 'Compactadores', units: '15', detail: 'CS78B / CP54' },
-  { icon: 'crane', name: 'Grúas', units: '8', detail: '25 a 250 ton' },
-  { icon: 'roller', name: 'Rodillos', units: '10', detail: 'CS533E / CB24' },
+  { name: 'Excavadoras', detail: '20 a 49 ton', units: 18 },
+  { name: 'Retroexcavadoras', detail: '410 C / BHL65', units: 25 },
+  { name: 'Cargadores frontales', detail: '928 GZ a 980M', units: 20 },
+  { name: 'Dozers', detail: 'D6 – D11', units: 12 },
+  { name: 'Montacargas', detail: '3 a 16 ton', units: 35 },
+  { name: 'Compactadores', detail: 'CS78B / CP54', units: 15 },
+  { name: 'Grúas', detail: '25 a 250 ton', units: 8 },
+  { name: 'Rodillos', detail: 'CS533E / CB24', units: 10 },
 ]
+
+const maxUnits = Math.max(...fleet.map((item) => item.units))
+
+const columns = 'md:grid-cols-[1.3fr_1fr_1.5fr_auto]'
 
 export function Fleet() {
   return (
-    <section id="flotilla" className="relative isolate overflow-hidden bg-brand-blue-dark py-16 sm:py-28">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-grid" aria-hidden="true" />
-      <div
-        className="pointer-events-none absolute -left-24 top-1/3 -z-10 h-80 w-80 animate-spin-slow rounded-full border border-white/10"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute -right-24 bottom-1/4 -z-10 h-96 w-96 animate-spin-slow rounded-full border border-brand-orange/10 [animation-delay:-7s]"
-        aria-hidden="true"
-      />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto mb-10 max-w-2xl text-center sm:mb-16">
-          <Reveal>
-            <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-sm font-semibold uppercase tracking-wide text-blue-100">
-              Flotilla
-            </p>
-          </Reveal>
-          <Reveal delay={80}>
-            <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-              Maquinaria lista para trabajar
-            </h2>
-          </Reveal>
-          <Reveal delay={160}>
-            <p className="text-lg leading-relaxed text-blue-100/75">
+    <section id="flotilla" className="bg-white">
+      <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-32">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-2xl">
+            <Eyebrow>Flotilla</Eyebrow>
+            <Reveal delay={80}>
+              <h2 className="mt-5 text-[2rem] leading-[1.15] font-bold tracking-[-0.01em] text-brand-blue sm:text-[2.75rem]">
+                Maquinaria lista para trabajar
+              </h2>
+            </Reveal>
+          </div>
+          <Reveal delay={160} className="max-w-md">
+            <p className="text-[17px] leading-relaxed text-steel-700">
               Más de 120 equipos de las mejores marcas, inspeccionados y listos
               para mover tu proyecto.
             </p>
           </Reveal>
         </div>
 
-        <ul className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
-          {fleet.map((item, index) => (
-            <Reveal
-              key={item.name}
-              as="li"
-              delay={(index % 4) * 70}
-              direction="zoom"
-              className="h-full [perspective:900px]"
-            >
-              <TiltCard
-                maxTilt={8}
-                glowColor="rgba(244, 118, 13, 0.14)"
-                className="group flex h-full flex-col items-center rounded-xl border border-white/10 bg-white/[0.04] p-4 text-center backdrop-blur transition-shadow duration-300 hover:border-brand-orange/40 hover:shadow-xl hover:shadow-brand-orange/10 sm:rounded-2xl sm:p-7"
+        <Reveal delay={120} className="mt-12 border border-steel-200">
+          <div
+            aria-hidden="true"
+            className={`hidden gap-x-6 bg-brand-blue px-6 py-4 text-[13px] font-semibold uppercase tracking-[0.06em] text-white md:grid ${columns}`}
+          >
+            <span>Equipo</span>
+            <span>Capacidad / Modelo</span>
+            <span>Unidades</span>
+            <span className="text-right">Cotizar</span>
+          </div>
+
+          <ul>
+            {fleet.map((item, index) => (
+              <li
+                key={item.name}
+                className={`grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-2 border-steel-200 px-5 py-5 transition-colors duration-200 hover:bg-steel-50 md:gap-x-6 md:px-6 ${columns} ${index ? 'border-t' : ''}`}
               >
-                <span
-                  className="mb-3 inline-flex h-11 w-11 shrink-0 animate-float-slow items-center justify-center rounded-lg bg-white/10 text-orange-300/90 ring-1 ring-inset ring-white/10 transition-transform duration-300 group-hover:scale-110 group-hover:text-brand-orange-light sm:mb-4 sm:h-14 sm:w-14 sm:rounded-xl"
-                  style={{ animationDelay: `${index * -1.2}s` }}
-                >
-                  <Icon name={item.icon} className="h-5 w-5 sm:h-7 sm:w-7" />
-                </span>
-                <h3 className="mb-1 text-sm font-semibold text-white sm:text-base">{item.name}</h3>
-                <p className="mb-3 line-clamp-2 text-xs text-blue-100/55 sm:text-sm">
+                <h3 className="text-[17px] font-semibold text-brand-blue md:order-1">{item.name}</h3>
+                <p className="col-span-2 font-mono text-sm text-steel-700 md:order-2 md:col-span-1">
+                  <span className="sr-only">Capacidad o modelo: </span>
                   {item.detail}
                 </p>
-                <p className="mt-auto rounded-full border border-brand-orange/40 bg-brand-orange/10 px-3 py-1 text-xs font-semibold text-brand-orange-light transition-colors duration-300 group-hover:bg-brand-orange group-hover:text-white sm:text-sm">
-                  {item.units} unidades
-                </p>
-              </TiltCard>
-            </Reveal>
-          ))}
-        </ul>
-
-        <Reveal delay={200} className="mt-10 text-center sm:mt-12">
-          <p className="text-sm text-blue-100/75 sm:text-base">
-            ¿No encuentras el equipo que necesitas?{' '}
-            <a
-              href="#contacto"
-              className="font-semibold text-brand-orange-light underline-offset-4 transition-colors hover:text-brand-orange"
-            >
-              Pregunta por nuestro inventario completo →
-            </a>
-          </p>
+                <div className="col-span-2 flex items-center gap-4 md:order-3 md:col-span-1">
+                  <CountUp value={String(item.units)} duration={1200} className="w-7 font-semibold tabular-nums" />
+                  <span className="sr-only"> unidades</span>
+                  <span aria-hidden="true" className="h-1.5 flex-1 bg-steel-50">
+                    <span
+                      className="grow-bar block h-full bg-brand-orange"
+                      style={{
+                        width: `${(item.units / maxUnits) * 100}%`,
+                        transitionDelay: `${200 + index * 80}ms`,
+                      }}
+                    />
+                  </span>
+                </div>
+                <a
+                  href="#contacto"
+                  aria-label={`Cotizar ${item.name.toLowerCase()}`}
+                  className="group row-start-1 col-start-2 inline-flex items-center gap-1.5 justify-self-end text-sm font-semibold text-brand-blue transition-colors hover:text-brand-orange-dark md:order-4 md:row-auto md:col-auto"
+                >
+                  Cotizar
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+                </a>
+              </li>
+            ))}
+          </ul>
         </Reveal>
+
+        <p className="mt-5 text-[15px] text-steel-500">
+          Cada unidad pasa inspección técnica antes de salir a obra.{' '}
+          <a href="#contacto" className="font-semibold text-brand-blue underline-offset-4 hover:underline">
+            Pregunta por nuestro inventario completo
+          </a>
+        </p>
       </div>
     </section>
   )

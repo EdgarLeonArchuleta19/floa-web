@@ -1,160 +1,185 @@
 import { useEffect, useState } from 'react'
-import { Menu, X, Phone } from 'lucide-react'
+import { Menu, X, Phone, Mail, MapPin } from 'lucide-react'
 import logoFloa from '../../assets/logo-floa.png'
-import logoFloaBlack from '../../assets/logo-floa-black.png'
+import { company, navLinks } from '../../data/company.ts'
 
-const companyName = 'FLOA'
-const phone = '+52 81 1234 5678'
-const phoneLink = 'tel:+528112345678'
-
-const navLinks = [
-  { label: 'Inicio', href: '#inicio' },
-  { label: 'Nosotros', href: '#nosotros' },
-  { label: 'Servicios', href: '#servicios' },
-  { label: 'Flotilla', href: '#flotilla' },
-  { label: 'Contacto', href: '#contacto' },
-]
-
-function Logo({ scrolled = false }) {
-  const title = `${companyName} - Inicio`
+function UtilityBar() {
   return (
-    <span className="relative inline-block h-8 w-auto sm:h-10">
-      <img
-        src={logoFloa}
-        alt={title}
-        aria-hidden={!scrolled}
-        className={`h-8 w-auto object-contain transition-opacity duration-300 sm:h-10 ${
-          scrolled ? 'opacity-100' : 'opacity-0'
-        }`}
-      />
-      <img
-        src={logoFloaBlack}
-        alt={title}
-        aria-hidden={scrolled}
-        className={`absolute inset-0 h-full w-auto object-contain transition-opacity duration-300 ${
-          scrolled ? 'opacity-0' : 'opacity-100'
-        }`}
-      />
-    </span>
+    <div className="bg-brand-navy text-[13px] text-steel-300">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-2 sm:px-8">
+        <span className="flex min-w-0 items-center gap-2">
+          <MapPin className="h-3.5 w-3.5 shrink-0 text-brand-orange" aria-hidden="true" />
+          <span className="truncate">Av. Pablo Livas 4200, Monterrey, N.L.</span>
+        </span>
+        <span className="hidden items-center gap-7 sm:flex">
+          <span className="hidden lg:inline">{company.schedule}</span>
+          <a
+            href={company.emailLink}
+            className="flex items-center gap-2 text-white transition-colors hover:text-brand-orange"
+          >
+            <Mail className="h-3.5 w-3.5" aria-hidden="true" />
+            {company.email}
+          </a>
+        </span>
+      </div>
+    </div>
   )
 }
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [active, setActive] = useState('')
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    const onScroll = () => setScrolled(window.scrollY > 40)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Resalta en el menú la sección que está en pantalla
+  useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') return undefined
+    const sections = navLinks
+      .map((link) => document.querySelector(link.href))
+      .filter(Boolean)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`)
+        })
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    )
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
+  }, [])
+
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
+    const onKey = (event) => event.key === 'Escape' && setOpen(false)
+    window.addEventListener('keydown', onKey)
     return () => {
       document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKey)
     }
   }, [open])
 
+  const close = () => setOpen(false)
+
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-white/95 shadow-lg shadow-slate-900/5 backdrop-blur'
-          : 'bg-gradient-to-b from-black/50 via-black/25 to-transparent'
-      }`}
-    >
-      <nav
-        className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:h-20 sm:px-6 lg:px-8"
-        aria-label="Navegación principal"
+    <>
+      <UtilityBar />
+      <header
+        className={`sticky top-0 z-50 border-b bg-white transition-shadow duration-300 ${
+          scrolled ? 'border-transparent shadow-[0_6px_24px_-12px_rgba(10,34,54,0.35)]' : 'border-steel-200'
+        }`}
       >
-        <a href="#inicio" className="flex shrink-0 items-center" aria-label={`${companyName} - Inicio`}>
-          <Logo scrolled={scrolled} />
-        </a>
-
-        <ul className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className={`group relative text-sm font-medium transition-colors ${
-                  scrolled ? 'text-slate-700 hover:text-brand-blue' : 'text-white hover:text-white/80'
-                }`}
-              >
-                {link.label}
-                <span
-                  className={`absolute -bottom-1.5 left-0 h-0.5 w-0 transition-all duration-300 group-hover:w-full ${
-                    scrolled ? 'bg-brand-orange' : 'bg-brand-orange-light'
-                  }`}
-                  aria-hidden="true"
-                />
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <div className="hidden md:block">
-          <a
-            href={phoneLink}
-            className="group btn-shine inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-brand-blue to-brand-blue-light px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-brand-blue/20 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-blue/30"
-          >
-            <Phone className="h-4 w-4 text-orange-300 transition-colors group-hover:text-brand-orange" aria-hidden="true" />
-            {phone}
-          </a>
-        </div>
-
-        <button
-          type="button"
-          className={`inline-flex h-11 w-11 items-center justify-center rounded-md backdrop-blur transition-colors md:hidden ${
-            scrolled ? 'text-slate-700 hover:bg-slate-100' : 'text-white hover:bg-white/15'
+        <nav
+          className={`mx-auto flex max-w-7xl items-center justify-between gap-6 px-5 transition-[height] duration-300 sm:px-8 ${
+            scrolled ? 'h-16 lg:h-[72px]' : 'h-[72px] lg:h-[84px]'
           }`}
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+          aria-label="Navegación principal"
         >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
-      </nav>
+          <a href="#inicio" className="flex shrink-0 items-center" aria-label={`${company.name} - Inicio`}>
+            <img
+              src={logoFloa}
+              alt={`${company.name} Machinery & Equipment Rental`}
+              className={`w-auto transition-[height] duration-300 ${scrolled ? 'h-9' : 'h-10 lg:h-11'}`}
+            />
+          </a>
 
-      {open && (
-        <div
-          id="mobile-menu"
-          className="fixed inset-x-0 top-16 bottom-0 z-40 bg-white/97 backdrop-blur sm:top-20 md:hidden"
-        >
-          <div
-            className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-blue via-brand-orange to-brand-blue"
-            aria-hidden="true"
-          />
-          <ul className="flex flex-col gap-1 px-4 py-4 sm:px-6 sm:py-6">
-            {navLinks.map((link, index) => (
-              <li
-                key={link.href}
-                className="animate-fade-left"
-                style={{ animationDelay: `${index * 60}ms` }}
-              >
+          <ul className="hidden items-center gap-9 lg:flex">
+            {navLinks.map((link) => (
+              <li key={link.href}>
                 <a
                   href={link.href}
-                  className="block rounded-lg px-4 py-4 text-base font-medium text-slate-800 transition-colors hover:bg-slate-50 hover:text-brand-blue sm:text-lg"
-                  onClick={() => setOpen(false)}
+                  aria-current={active === link.href ? 'true' : undefined}
+                  className={`nav-link text-[15px] font-medium transition-colors hover:text-brand-blue ${
+                    active === link.href ? 'text-brand-blue' : 'text-steel-700'
+                  }`}
                 >
                   {link.label}
                 </a>
               </li>
             ))}
-            <li className="mt-3 animate-fade-left px-4" style={{ animationDelay: '360ms' }}>
-              <a
-                href={phoneLink}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-brand-orange px-5 py-4 text-base font-semibold text-white shadow-lg shadow-brand-orange/30"
+          </ul>
+
+          <div className="flex items-center gap-3 sm:gap-6">
+            <a href={company.phoneLink} className="hidden flex-col leading-tight md:flex">
+              <span className="text-xs text-steel-500">Llámanos</span>
+              <span className="font-semibold text-brand-blue transition-colors hover:text-brand-orange-dark">
+                {company.phone}
+              </span>
+            </a>
+            <a
+              href="#contacto"
+              className="btn-fill hidden h-12 items-center rounded-[2px] bg-brand-orange px-5 text-[15px] font-semibold text-brand-navy [--btn-fill:var(--color-brand-navy)] transition-colors duration-300 hover:text-white sm:inline-flex"
+            >
+              Solicitar cotización
+            </a>
+            <button
+              type="button"
+              onClick={() => setOpen((value) => !value)}
+              className="flex h-11 w-11 items-center justify-center rounded-[2px] text-brand-blue transition-colors hover:bg-steel-50 lg:hidden"
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+            >
+              {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
+        </nav>
+
+        {/* Menú móvil */}
+        <div
+          id="mobile-menu"
+          className={`absolute inset-x-0 top-full overflow-hidden bg-white transition-[max-height,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:hidden ${
+            open ? 'max-h-[calc(100svh-4rem)] shadow-xl' : 'max-h-0'
+          }`}
+          aria-hidden={!open}
+          inert={!open}
+        >
+          <ul className="border-t border-steel-200 px-5 py-4 sm:px-8">
+            {navLinks.map((link, index) => (
+              <li
+                key={link.href}
+                className={`transition-all duration-500 ${open ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'}`}
+                style={{ transitionDelay: open ? `${80 + index * 60}ms` : '0ms' }}
               >
-                <Phone className="h-5 w-5" aria-hidden="true" />
-                {phone}
+                <a
+                  href={link.href}
+                  onClick={close}
+                  className="flex items-center justify-between border-b border-steel-200 py-4 text-lg font-semibold text-brand-blue"
+                >
+                  {link.label}
+                  <span aria-hidden="true" className="text-brand-orange">→</span>
+                </a>
+              </li>
+            ))}
+            <li
+              className={`grid gap-3 pt-5 transition-all duration-500 sm:grid-cols-2 ${open ? 'opacity-100' : 'opacity-0'}`}
+              style={{ transitionDelay: open ? '340ms' : '0ms' }}
+            >
+              <a
+                href="#contacto"
+                onClick={close}
+                className="flex h-12 items-center justify-center rounded-[2px] bg-brand-orange font-semibold text-brand-navy"
+              >
+                Solicitar cotización
+              </a>
+              <a
+                href={company.phoneLink}
+                className="flex h-12 items-center justify-center gap-2 rounded-[2px] border border-brand-blue font-semibold text-brand-blue"
+              >
+                <Phone className="h-4 w-4" aria-hidden="true" />
+                {company.phone}
               </a>
             </li>
           </ul>
         </div>
-      )}
-    </header>
+      </header>
+    </>
   )
 }
